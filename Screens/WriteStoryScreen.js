@@ -7,6 +7,9 @@ import {
   TextInput,
   Touchable,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Alert,
+  ToastAndroid,
 } from "react-native";
 
 import db from '../config'
@@ -23,15 +26,19 @@ export default class WriteStoryScreen extends React.Component {
   }
 
   submitStory = (Author, Title, Story) => {
+    var mess = "Story Submitted"
     db.collection("Story").add({
       Title: this.state.Title,
       Author: this.state.Author,
       Story: this.state.Story,
     });
+    Alert.alert('Story submitted')
+    ToastAndroid.show(mess, ToastAndroid.SHORT) 
   };
 
   render() {
     return (
+      <KeyboardAvoidingView style={styles.keyBoardStyle}>
       <View>
         <TextInput
           style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
@@ -69,6 +76,7 @@ export default class WriteStoryScreen extends React.Component {
           <Text>Request</Text>
         </TouchableOpacity>
       </View>
+      </KeyboardAvoidingView>
     );
   }
 }
